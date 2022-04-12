@@ -1,0 +1,14 @@
+{
+    "name": "somardesignstudios/silverstripe-page-reminder",
+	"description": "Silverstripe Page Reminder",
+	"type": "silverstripe-vendormodule",
+    "require": {
+        
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "silverstripe/vendor-plugin": true
+        }
+    }
+}

@@ -1,0 +1,7 @@
+---
+Name: extensions
+After: "*"
+---
+Page:
+  extensions:
+    - Somar\Extension\UpdateReminderExtension
