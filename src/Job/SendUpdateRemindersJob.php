@@ -29,18 +29,12 @@ class SendUpdateRemindersJob extends AbstractQueuedJob
 
     public function process()
     {
-        // Increment to tell the Job Runner that this Job is still running
-        ++$this->currentStep;
-
         $task = new SendUpdateRemindersTask();
         $task->sendUpdateReminders();
         $this->messages = $task->getMessages();
-
-        if ($this->currentStep >= $this->totalSteps) {
-            $this->addMessage('Done.');
-            $this->isComplete = true;
-            $this->requeue();
-        }
+        $this->addMessage('Done.');
+        $this->isComplete = true;
+        $this->requeue();
     }
 
     private function requeue()
