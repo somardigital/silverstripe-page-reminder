@@ -3,16 +3,9 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <p>Hello $MemberName,</p>
+        <p>Hi $MemberName,</p>
 
-        <p>The <b>Content Update Reminders</b> task has been run at $LastRun.Nice and is now completed.</p>
-
-        <p>
-            Ensuring content is fresh and valid on the website is key to maintaining its value to ratepayers and citizens.<br />
-            It's also our best way to tell the 'GWRC story' and improve our profile and visibility in our community.
-        </p>
-
-        <p>The following pages on the GW website haven't been edited recently and might need updating.
+        <p>The following pages on  haven't been edited recently and might need updating.
 
         <h2>Summary</h2>
         <% loop $ItemsTypes %>
