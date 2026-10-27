@@ -2,15 +2,15 @@
 
 namespace Somar\Extension;
 
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\OptionsetField;
-use SilverStripe\ORM\DataExtension;
 
 /**
  * If a page has not been edited in e.g. 6 months, send a reminder email
  * to CMS admin to check if any updates are needed.
  */
-class UpdateReminderExtension extends DataExtension
+class UpdateReminderExtension extends Extension
 {
     private static $db = [
         'UpdateReminderPeriod' => "Enum('None, One month, Three months, Six months, One year',

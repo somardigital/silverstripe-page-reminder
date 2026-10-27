@@ -5,19 +5,23 @@ namespace Somar\Task;
 use Page;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Dev\BuildTask;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\DB;
+use SilverStripe\Model\ArrayData;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\ORM\FieldType\DBDatetime;
+use SilverStripe\PolyExecution\PolyOutput;
 use SilverStripe\Security\Group;
-use SilverStripe\View\ArrayData;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
 
 class SendUpdateRemindersTask extends BuildTask
 {
-    protected $title = 'Send Update Reminders';
+    protected string $title = 'Send Update Reminders';
 
-    protected $description = 'Each page can have an update reminder period set.<br>This task
+    protected static string $description = 'Each page can have an update reminder period set. This task
         checks for any pages that have their last update time older than the reminder
         period, and emails the page owners requesting an update.';
+
+    private static string $commandName = 'send-update-reminders';
 
     // What the enums in Page.php actually map to (in days)
     private static $update_periods = [
@@ -35,10 +39,12 @@ class SendUpdateRemindersTask extends BuildTask
     // output log
     private $messages = [];
 
-    public function run($request)
+    protected function execute(InputInterface $input, PolyOutput $output): int
     {
         $this->sendUpdateReminders();
-        $this->printMessages();
+        $this->printMessages($output);
+
+        return Command::SUCCESS;
     }
 
     public function sendUpdateReminders()
@@ -83,7 +89,7 @@ class SendUpdateRemindersTask extends BuildTask
                 $this->addMessage('');
             }
 
-            $this->addMessage('<hr />');
+            $this->addMessage('----');
         }
     }
 
@@ -161,10 +167,10 @@ class SendUpdateRemindersTask extends BuildTask
         $this->messages[] = '[' . DBDatetime::now()->Rfc2822() . "][{$severity}] {$message}";
     }
 
-    private function printMessages()
+    private function printMessages(PolyOutput $output): void
     {
         foreach ($this->messages as $message) {
-            DB::alteration_message($message);
+            $output->writeln($message);
         }
     }
 }
