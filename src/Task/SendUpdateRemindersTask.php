@@ -21,7 +21,7 @@ class SendUpdateRemindersTask extends BuildTask
         checks for any pages that have their last update time older than the reminder
         period, and emails the page owners requesting an update.';
 
-    private static string $commandName = 'send-update-reminders';
+    protected static string $commandName = 'send-update-reminders';
 
     // What the enums in Page.php actually map to (in days)
     private static $update_periods = [
